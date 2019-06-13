@@ -6,7 +6,7 @@
         :key="index"
         v-for="(image, index) in images"
         class="image-asset"
-        @click="$emit('on-asset-click', {url: image, type: 'image'})"
+        @click="$emit('asset-click', {url: image, type: 'image'})"
       >
         <img :src="image" class="img-rounded non-draggable">
       </li>

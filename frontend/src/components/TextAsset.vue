@@ -1,7 +1,7 @@
 <template>
   <div class="text">
     <h4>Text</h4>
-    <button id="addText" class="btn btn-default">Add Text</button>
+    <button @click="$emit('add-text', {type: 'text', text: ''})" class="btn btn-default">Add Text</button>
   </div>
 </template>
 
@@ -10,6 +10,3 @@ export default {
   name: "TextAsset"
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

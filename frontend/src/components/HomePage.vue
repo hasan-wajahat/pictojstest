@@ -5,8 +5,8 @@
       <hr>
       <div class="assets">
         <h3>Assets</h3>
-        <TextAsset />
-        <ImageList :images="images" v-on:on-asset-click="onAssetClick"/>
+        <TextAsset v-on:add-text="onAddAsset" />
+        <ImageList :images="images" v-on:asset-click="onAddAsset"/>
       </div>
     </div>
     <Canvas :assets="assets" v-on:asset-moved="onAssetMoved" v-on:delete-asset="onDeleteAsset"/>
@@ -47,7 +47,7 @@ export default {
     onFileUpload: function(url) {
       this.images.push(url);
     },
-    onAssetClick: function(asset) {
+    onAddAsset: function(asset) {
       this.assets.push({
         ...asset,
         id: Date.now(),

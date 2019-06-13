@@ -7,12 +7,12 @@
           @dragstart="onDragStart(asset, $event)"
           @drop="onItemDrop(asset, $event)"
           @dragover="onDragOver"
-          v-if="asset.type === 'image'"
           :key="asset.id"
-          class="image"
+          class="asset"
           :style="getStyles(index)"
         >
-          <img :src="asset.url">
+          <img v-if="asset.type === 'image'" :src="asset.url">
+          <textarea v-else-if="asset.type === 'text'" v-model="asset.text" />
           <button @click="$emit('delete-asset', index)" class="delete-button btn-danger">
             <i class="fa fa-close"></i>
           </button>
@@ -81,7 +81,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.image {
+.asset {
   cursor: pointer;
   position: absolute;
   img {
