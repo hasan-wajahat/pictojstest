@@ -1,12 +1,7 @@
 <template>
   <div class="main-container">
     <div class="sidepane col-sm-2 col-md-2 col-lg-2">
-      <div class="form">
-        <h3>Form</h3>
-        <input type="file" class="form-control" placeholder="Upload Your Images" name="upload">
-        <button id="submit" class="btn btn-default">upload</button>
-        <!-- Upload Form here -->
-      </div>
+      <FileUpload v-on:file-upload="onFileUpload"/>
       <hr>
       <div class="assets">
         <h3>Assets</h3>
@@ -14,13 +9,7 @@
           <h4>Text</h4>
           <button id="addText" class="btn btn-default">Add Text</button>
         </div>
-        <div class="image">
-          <h4>Images</h4>
-          <ul class="list-unstyled">
-            <!-- List of images here -->
-            <!-- <li><img src="images/sample.jpeg" class="img-rounded" /></li> -->
-          </ul>
-        </div>
+        <ImageList :images="images"/>
       </div>
     </div>
     <!-- canvas -->
@@ -33,30 +22,43 @@
 </template>
 
 <script>
+import { getData } from "../helpers/Api";
+import ImageList from "./ImageList";
+import FileUpload from "./FileUpload";
+
 export default {
-  name: "HelloWorld",
+  name: "HomePage",
+  data: function() {
+    return {
+      images: []
+    };
+  },
   props: {
     msg: String
+  },
+  components: {
+    ImageList,
+    FileUpload
+  },
+  mounted: async function() {
+    try {
+      const response = await getData("/images");
+      this.images = response;
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
+  },
+  methods: {
+    onFileUpload: function(url) {
+      this.images.push(url);
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style lang="scss" scoped>
 .main-container {
   height: 100%;
 }
