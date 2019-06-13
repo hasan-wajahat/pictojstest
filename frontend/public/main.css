@@ -14,7 +14,7 @@ html, body {
 }
 
 .sidepane .form {
-  height: 80px;
+  min-height: 80px;
   margin: 10px 0;
 }
 

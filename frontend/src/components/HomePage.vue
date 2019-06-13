@@ -5,19 +5,11 @@
       <hr>
       <div class="assets">
         <h3>Assets</h3>
-        <div class="text">
-          <h4>Text</h4>
-          <button id="addText" class="btn btn-default">Add Text</button>
-        </div>
-        <ImageList :images="images"/>
+        <TextAsset />
+        <ImageList :images="images" v-on:on-asset-click="onAssetClick"/>
       </div>
     </div>
-    <!-- canvas -->
-    <div class="canvas col-sm-8 col-md-8 col-lg-8">
-      <div class="block">
-        <!-- Add images and texts to here -->
-      </div>
-    </div>
+    <Canvas :assets="assets" v-on:asset-moved="onAssetMoved" v-on:delete-asset="onDeleteAsset"/>
   </div>
 </template>
 
@@ -25,20 +17,22 @@
 import { getData } from "../helpers/Api";
 import ImageList from "./ImageList";
 import FileUpload from "./FileUpload";
+import Canvas from "./Canvas";
+import TextAsset from "./TextAsset";
 
 export default {
   name: "HomePage",
   data: function() {
     return {
-      images: []
+      images: [],
+      assets: []
     };
-  },
-  props: {
-    msg: String
   },
   components: {
     ImageList,
-    FileUpload
+    FileUpload,
+    Canvas,
+    TextAsset,
   },
   mounted: async function() {
     try {
@@ -52,6 +46,26 @@ export default {
   methods: {
     onFileUpload: function(url) {
       this.images.push(url);
+    },
+    onAssetClick: function(asset) {
+      this.assets.push({
+        ...asset,
+        id: Date.now(),
+        left: 0,
+        top: 0
+      });
+    },
+    onAssetMoved: function({ id, offsetValues }) {
+      const index = this.assets.findIndex(asset => asset.id === id);
+      const currentAsset = this.assets[index];
+      const newAsset = {
+        ...currentAsset,
+        ...offsetValues
+      };
+      this.assets.splice(index, 1, newAsset);
+    },
+    onDeleteAsset: function(index) {
+      this.assets.splice(index, 1);
     }
   }
 };
