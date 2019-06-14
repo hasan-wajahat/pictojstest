@@ -9,6 +9,7 @@
       accept="image/*"
       @change="filesChange($event);"
     >
+    <!-- Image preview -->
     <img v-if="file" :src="filePreview" class="preview-image">
     <button @click="onClick" class="btn btn-default upload-button">Upload</button>
   </div>
@@ -32,12 +33,15 @@ export default {
       reader.onload = event => {
         this.filePreview = event.target.result;
       };
+      // reads file to show image preview
       reader.readAsDataURL(this.file);
     },
     onClick: async function() {
+      if (!this.file) return;
       try {
         const response = await uploadFile("/uploads", this.file);
         if (response) {
+          // save to list the new upload file
           this.$emit("file-upload", response.file);
           this.reset();
         }
@@ -49,6 +53,7 @@ export default {
     reset: function() {
       this.file = null;
       this.filePreview = null;
+      // clears the file input
       document.getElementById("file-input").value = "";
     }
   }

@@ -19,6 +19,8 @@
 </template>
 
 <script>
+// Main container housing all the components and the state
+
 import { getData, saveApi, loadApi } from "../helpers/Api";
 import ImageList from "./ImageList";
 import FileUpload from "./FileUpload";
@@ -39,6 +41,7 @@ export default {
     Canvas,
     TextAsset
   },
+  // get images and saved data on load
   mounted: function() {
     this.loadImages();
     this.loadSavedData();
@@ -62,7 +65,9 @@ export default {
     },
     onAddAsset: function(asset) {
       this.assets.push({
+        // we add our own id
         id: Date.now(),
+        // initialize position for asset
         left: 0,
         top: 0,
         ...asset
@@ -81,6 +86,7 @@ export default {
       this.assets.splice(index, 1);
     },
     onSave: function() {
+      // save asset
       saveApi(this.assets);
     }
   }

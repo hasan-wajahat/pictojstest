@@ -2,6 +2,7 @@
   <div class="image">
     <h4>Images</h4>
     <ul class="list-unstyled">
+      <!-- List of images -->
       <li
         :key="index"
         v-for="(image, index) in images"
@@ -32,6 +33,7 @@ export default {
     transform: scale(1.1);
   }
 }
+// to make images non-draggable from the list
 .non-draggable {
   user-drag: none;
   user-select: none;

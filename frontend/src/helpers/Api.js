@@ -1,3 +1,8 @@
+/**
+ * Get options for the fetch call for JSON objects
+ * @param {String} method method for making calls
+ * @param {any} data object to send
+ */
 const getOptions = (method, data = null) => ({
   method, // *GET, POST, PUT, DELETE, etc.
   mode: 'cors', // no-cors, cors, *same-origin
@@ -9,6 +14,10 @@ const getOptions = (method, data = null) => ({
   body: data ? JSON.stringify(data) : undefined, // only send json data in body if data passed
 });
 
+/**
+ * Get options for the fetch call for form requests
+ * @param {any} data form to send
+ */
 const postFormDataOptions = (body) => ({
   method: 'POST',
   body,
@@ -19,6 +28,10 @@ const postFormDataOptions = (body) => ({
   },
 });
 
+/**
+ * Main Api call using native fetch
+ * @param {{url: string, method: string, data; any, formData: Form-Data}}
+ */
 const api = ({
   url, method, data, formData
 }) =>
@@ -31,19 +44,36 @@ const api = ({
   });
 
 
+/**
+ * Get call
+ * @param {string} url 
+ */
 export const getData = url => api({url, method: 'GET'});
 
+/**
+ * Upload Api using form-data
+ * @param {sring} url 
+ * @param {file} file to upload
+ */
 export const uploadFile = (url, file) => {
   let formData = new FormData();
   formData.append('upload', file);
   return api({url, formData})
 };
 
+/**
+ * Saves dato in sessions at the key savedData
+ * saves in json form
+ * @param {any} data data to be saved
+ */
 export const saveApi = data => {
   const jsonData = JSON.stringify(data);
   sessionStorage.setItem('savedData', jsonData);
 };
 
+/**
+ * Gets data saved in savedData in session Data
+ */
 export const loadApi = () => {
   const jsonData = sessionStorage.getItem('savedData');
   return JSON.parse(jsonData);

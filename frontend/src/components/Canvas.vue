@@ -2,6 +2,7 @@
   <div class="canvas col-sm-8 col-md-8 col-lg-8">
     <div class="block canvas" @dragover="onDragOver" @drop="onDrop">
       <template v-for="(asset, index) in assets">
+        <!-- draggable assets -->
         <div
           draggable="true"
           @dragstart="onDragStart(asset, $event)"
@@ -31,6 +32,7 @@ export default {
   },
   data: function() {
     return {
+      // used to save the size of the currently moved asset
       movedObjectSize: {
         x: 0,
         y: 0
@@ -39,6 +41,7 @@ export default {
   },
   methods: {
     onDragStart: function(asset, event) {
+      // Saves id of the asset being dragged
       event.dataTransfer.setData("text", asset.id);
       this.movedObjectSize = {
         x: event.target.clientWidth,
@@ -46,27 +49,35 @@ export default {
       };
     },
     onDragOver: function(event) {
+      // to stop default actions
       event.preventDefault();
     },
+    // when dropped on canvase
     onDrop: function(event) {
       event.preventDefault();
+      // convert from string to number
       const id = Number(event.dataTransfer.getData("text"));
       let offsetValues = {
+        // to caclulate position of asset, subtract assets dimensions by half from offset position
         left: event.offsetX - this.movedObjectSize.x / 2,
         top: event.offsetY - this.movedObjectSize.y / 2
       };
       this.$emit("asset-moved", { id, offsetValues });
     },
+    // when dropped on asset
     onItemDrop: function(asset, event) {
       event.preventDefault();
       event.stopPropagation();
       const id = Number(event.dataTransfer.getData("text"));
+      // In case of asset the offset is calculated from the position of the asset on whic
+      // the new asset is dropped. So we add that asset's own position as well
       let offsetValues = {
         left: asset.left + event.offsetX - this.movedObjectSize.x / 2,
         top: asset.top + event.offsetY - this.movedObjectSize.y / 2
       };
       this.$emit("asset-moved", { id, offsetValues });
     },
+    // styles for moving the assets
     getStyles: function(index) {
       return {
         left: `${this.assets[index].left}px`,
