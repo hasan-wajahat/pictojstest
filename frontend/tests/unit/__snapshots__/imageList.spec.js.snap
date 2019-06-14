@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageList.vue button emits proper event 1`] = `
+Object {
+  "asset-click": Array [
+    Array [
+      Object {
+        "type": "image",
+        "url": "first",
+      },
+    ],
+  ],
+}
+`;

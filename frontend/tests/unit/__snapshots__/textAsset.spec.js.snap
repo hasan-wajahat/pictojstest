@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextAsset.vue button emits proper event 1`] = `
+Object {
+  "add-text": Array [
+    Array [
+      Object {
+        "text": "",
+        "type": "text",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`TextAsset.vue renders text correctly 1`] = `"Text Add Text"`;
