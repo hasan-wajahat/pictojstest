@@ -5,16 +5,21 @@
       <hr>
       <div class="assets">
         <h3>Assets</h3>
-        <TextAsset v-on:add-text="onAddAsset" />
+        <TextAsset v-on:add-text="onAddAsset"/>
         <ImageList :images="images" v-on:asset-click="onAddAsset"/>
       </div>
     </div>
-    <Canvas :assets="assets" v-on:asset-moved="onAssetMoved" v-on:delete-asset="onDeleteAsset"/>
+    <Canvas
+      :assets="assets"
+      v-on:asset-moved="onAssetMoved"
+      v-on:delete-asset="onDeleteAsset"
+      v-on:save="onSave"
+    />
   </div>
 </template>
 
 <script>
-import { getData } from "../helpers/Api";
+import { getData, saveApi, loadApi } from "../helpers/Api";
 import ImageList from "./ImageList";
 import FileUpload from "./FileUpload";
 import Canvas from "./Canvas";
@@ -32,18 +37,26 @@ export default {
     ImageList,
     FileUpload,
     Canvas,
-    TextAsset,
+    TextAsset
   },
-  mounted: async function() {
-    try {
-      const response = await getData("/images");
-      this.images = response;
-    } catch (error) {
-      // eslint-disable-next-line
-      console.log(error);
-    }
+  mounted: function() {
+    this.loadImages();
+    this.loadSavedData();
   },
   methods: {
+    loadImages: async function() {
+      try {
+        const response = await getData("/images");
+        this.images = response;
+      } catch (error) {
+        // eslint-disable-next-line
+        console.log(error);
+      }
+    },
+    loadSavedData: function() {
+      const data = loadApi();
+      if (data && data.length) this.assets = data;
+    },
     onFileUpload: function(url) {
       this.images.push(url);
     },
@@ -66,6 +79,9 @@ export default {
     },
     onDeleteAsset: function(index) {
       this.assets.splice(index, 1);
+    },
+    onSave: function() {
+      saveApi(this.assets);
     }
   }
 };

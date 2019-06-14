@@ -10,7 +10,7 @@
       @change="filesChange($event);"
     >
     <img v-if="file" :src="filePreview" class="preview-image">
-    <button @click="onClick" class="btn btn-default upload-button">upload</button>
+    <button @click="onClick" class="btn btn-default upload-button">Upload</button>
   </div>
 </template>
 

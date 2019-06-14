@@ -19,6 +19,7 @@
         </div>
       </template>
     </div>
+    <button class="btn btn-default save-button" @click="$emit('save')">Save</button>
   </div>
 </template>
 
@@ -103,5 +104,9 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   display: none;
+}
+.save-button {
+  padding: 8px 30px;
+  margin-left: 10px;
 }
 </style>

@@ -38,3 +38,13 @@ export const uploadFile = (url, file) => {
   formData.append('upload', file);
   return api({url, formData})
 };
+
+export const saveApi = data => {
+  const jsonData = JSON.stringify(data);
+  sessionStorage.setItem('savedData', jsonData);
+};
+
+export const loadApi = () => {
+  const jsonData = sessionStorage.getItem('savedData');
+  return JSON.parse(jsonData);
+}
