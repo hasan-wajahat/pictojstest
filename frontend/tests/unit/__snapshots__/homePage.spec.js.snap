@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage.vue asset added updates values when asset is moved 1`] = `
+Array [
+  Object {
+    "id": 1,
+    "left": 10,
+    "text": "",
+    "top": 10,
+  },
+]
+`;
+
+exports[`HomePage.vue can add image assets 1`] = `
+Array [
+  Object {
+    "id": 2,
+    "left": 0,
+    "top": 0,
+    "url": "test.png",
+  },
+]
+`;
+
+exports[`HomePage.vue can add text assets 1`] = `
+Array [
+  Object {
+    "id": 1,
+    "left": 0,
+    "text": "",
+    "top": 0,
+  },
+]
+`;

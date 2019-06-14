@@ -47,7 +47,7 @@ export default {
     loadImages: async function() {
       try {
         const response = await getData("/images");
-        this.images = response;
+        if (response) this.images = response;
       } catch (error) {
         // eslint-disable-next-line
         console.log(error);
@@ -62,10 +62,10 @@ export default {
     },
     onAddAsset: function(asset) {
       this.assets.push({
-        ...asset,
         id: Date.now(),
         left: 0,
-        top: 0
+        top: 0,
+        ...asset
       });
     },
     onAssetMoved: function({ id, offsetValues }) {

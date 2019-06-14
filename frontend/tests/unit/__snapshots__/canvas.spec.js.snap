@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Canvas.vue can delete asset 1`] = `
+Object {
+  "delete-asset": Array [
+    Array [
+      0,
+    ],
+  ],
+}
+`;
+
+exports[`Canvas.vue can save assets 1`] = `
+Object {
+  "save": Array [
+    Array [],
+  ],
+}
+`;
