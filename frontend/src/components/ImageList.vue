@@ -17,8 +17,11 @@
 
 
 <script>
+import testMixin from '../mixins/Test';
+
 export default {
   name: "ImageList",
+  mixins: [testMixin],
   props: {
     images: Array
   }
