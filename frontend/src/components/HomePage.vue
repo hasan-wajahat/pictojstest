@@ -1,19 +1,19 @@
 <template>
   <div class="main-container">
     <div class="sidepane col-sm-2 col-md-2 col-lg-2">
-      <FileUpload v-on:file-upload="onFileUpload"/>
+      <FileUpload @file-upload="onFileUpload"/>
       <hr>
       <div class="assets">
         <h3>Assets</h3>
-        <TextAsset v-on:add-text="onAddAsset"/>
-        <ImageList :images="images" v-on:asset-click="onAddAsset"/>
+        <TextAsset @add-text="onAddAsset"/>
+        <ImageList :images="images" @asset-click="onAddAsset"/>
       </div>
     </div>
     <Canvas
       :assets="assets"
-      v-on:asset-moved="onAssetMoved"
-      v-on:delete-asset="onDeleteAsset"
-      v-on:save="onSave"
+      @asset-moved="onAssetMoved"
+      @delete-asset="onDeleteAsset"
+      @save="onSave"
     />
   </div>
 </template>
