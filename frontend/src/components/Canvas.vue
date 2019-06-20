@@ -1,13 +1,13 @@
 <template>
   <div class="canvas col-sm-8 col-md-8 col-lg-8">
-    <div class="block canvas" @dragover="onDragOver" @drop="onDrop">
+    <div class="block canvas" @dragover.prevent @drop="onDrop">
       <template v-for="(asset, index) in assets">
         <!-- draggable assets -->
         <div
           draggable="true"
           @dragstart="onDragStart(asset, $event)"
           @drop="onItemDrop(asset, $event)"
-          @dragover="onDragOver"
+          @dragover.prevent
           :key="asset.id"
           class="asset"
           :style="getStyles(index)"
@@ -47,10 +47,6 @@ export default {
         x: event.target.clientWidth,
         y: event.target.clientHeight
       };
-    },
-    onDragOver: function(event) {
-      // to stop default actions
-      event.preventDefault();
     },
     // when dropped on canvase
     onDrop: function(event) {
